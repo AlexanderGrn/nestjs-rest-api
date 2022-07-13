@@ -1,10 +1,11 @@
-import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { max } from 'rxjs';
 import { PostModel } from './posts.interface';
 
 @Injectable()
 export class PostsService {
     private posts: Array<PostModel> = [];
+    private readonly logger = new Logger(PostsService.name);
 
     public findAll(): Array<PostModel> {
         return this.posts;
