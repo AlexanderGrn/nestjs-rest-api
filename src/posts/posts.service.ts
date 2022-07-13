@@ -40,4 +40,40 @@ export class PostsService {
 
         return blogPost;
     }
+
+    public delete(id: number): void {
+        const index: number = this.posts.findIndex(post => post.id === id);
+
+        if (index === -1) {
+            throw new NotFoundException('Post not found');
+        }
+
+        this.posts.splice(index, 1);
+    }
+
+    public update(id: number, post: PostModel): PostModel {
+        this.logger.log(`Updating post with id: ${id}`);
+
+        const index: number = this.posts.findIndex(post => post.id === id);
+
+        if (index === -1) {
+            throw new NotFoundException('Post not found');
+        }
+
+        const titleExists: boolean = this.posts.some(
+            item => item.title === post.title && item.id !== id
+        )
+        if (titleExists) {
+            throw new UnprocessableEntityException('Post title already exists');
+        }
+
+        const blogPost: PostModel = {
+            ...post,
+            id
+        };
+
+        this.posts[index] = blogPost;
+
+        return blogPost;
+    }
 }
