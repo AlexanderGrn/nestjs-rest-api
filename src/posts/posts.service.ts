@@ -1,5 +1,4 @@
 import { Injectable, Logger, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
-import { max } from 'rxjs';
 import { PostModel } from './posts.interface';
 
 @Injectable()
@@ -13,7 +12,7 @@ export class PostsService {
 
     public findOne(id: number): PostModel {
         const post: PostModel = this.posts.find(post => post.id === id);
-
+        //must be in controller
         if (!post) {
             throw new NotFoundException('Post not found');
         }
@@ -44,7 +43,7 @@ export class PostsService {
 
     public delete(id: number): void {
         const index: number = this.posts.findIndex(post => post.id === id);
-
+        //must be in controller
         if (index === -1) {
             throw new NotFoundException('Post not found');
         }
@@ -56,7 +55,7 @@ export class PostsService {
         this.logger.log(`Updating post with id: ${id}`);
 
         const index: number = this.posts.findIndex(post => post.id === id);
-
+        //must be in controller
         if (index === -1) {
             throw new NotFoundException('Post not found');
         }
